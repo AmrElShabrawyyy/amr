@@ -312,6 +312,14 @@ label.f textarea{resize:vertical;min-height:64px}
   .pay{grid-template-columns:1fr}
 }
 
+/* promo */
+.promo{margin-top:14px}
+.promo-row{display:flex;gap:8px}
+.promo-row input{flex:1;min-width:0}
+.promo-row .btn{padding:10px 16px}
+.promo-on{display:flex;justify-content:space-between;align-items:center;gap:8px;background:color-mix(in srgb,var(--green) 10%,var(--surface));border:1px dashed var(--green);color:var(--green);border-radius:12px;padding:10px 12px;font-weight:600;font-size:14px}
+.promo-list{display:flex;flex-direction:column;gap:10px}
+.promo-item span small{display:block;color:var(--muted);font-weight:400;font-size:12px}
 /* order type */
 .otype label{padding:12px}
 .otype .ic{background:var(--surface-2);color:var(--green)}
@@ -454,6 +462,10 @@ html[dir="ltr"] .hero-art .r1{transform:skewX(8deg) rotate(4deg)}
         <label class="switch"><input type="checkbox" id="openToggle" checked><span id="openLabel"></span></label>
       </div>
       <div class="panel">
+        <h3 data-t="promosTitle"></h3>
+        <div id="promoList" class="promo-list"></div>
+      </div>
+      <div class="panel">
         <h3 data-t="instaTitle"></h3>
         <label class="f"><span data-t="instaLabel"></span><input id="instaInput" dir="ltr" placeholder="shabrawy@instapay"></label>
         <button class="btn btn-green" id="saveInsta" style="width:100%" data-t="save"></button>
@@ -530,12 +542,20 @@ en:{brand:"Amr El Shabrawy",brandSub:"عمرو الشبراوي",menu:"Menu",own
  f_active:"Active",f_all:"All",st_new:"New",st_preparing:"Preparing",st_onway:"On the way",st_done:"Delivered",st_cancelled:"Cancelled",pay_cash:"Cash on delivery",pay_instapay:"InstaPay on delivery",orderType:"How do you want it?",t_delivery:"Home delivery",t_pickup:"Pickup from branch",t_deliverySub:"A driver brings it to your door",t_pickupSub:"Collect it from the branch",branchPickup:"Branch you'll pick up from",cashSubP:"Pay cash at the branch when you collect",instaSubP:"Transfer with InstaPay when you collect",instaToP:"Transfer to {x} when you collect, and show the cashier the confirmation.",instaGenericP:"You'll transfer with InstaPay at the branch; the cashier will give you the details.",st_ready:"Ready for pickup",st_picked:"Picked up",readyPickup:"Ready for pickup",pickedUp:"Picked up",pickupAt:"Pickup from branch",donePickup:"We'll show it here as soon as your order is ready to collect.",pay_cash_p:"Cash at pickup",pay_instapay_p:"InstaPay at pickup"}
 };
 
-Object.assign(T.ar,{clearAll:"مسح كل الطلبات ({x})",clearAllConfirm:"متأكد؟ هيتمسح كل حاجة نهائي. اضغط تاني",clearedAll:"اتمسحت كل الطلبات ({x})",noOrdersAll:"مفيش طلبات",testTitle:"مسح الطلبات",testSub:"بيمسح الطلبات اللي عليها ملاحظة TEST بس، والطلبات الحقيقية مش بتتلمس.",clearTests:"مسح الطلبات التجريبية ({x})",clearConfirm:"اضغط تاني للتأكيد",cleared:"اتمسحت {x} طلب تجريبي",noTests:"مفيش طلبات تجريبية",setupMissing:"الموقع لسه مش متوصل بقاعدة البيانات. حط إعدادات Firebase في أول ملف index.html.",orderOffline:"الطلب أونلاين مش متاح دلوقتي. اطلب بالتليفون على 16574.",notifOn:"تفعيل التنبيهات",notifIsOn:"التنبيهات شغّالة",loggingIn:"بندخّلك…",netLogin:"مفيش اتصال بالإنترنت. جرّب تاني."});
-Object.assign(T.en,{clearAll:"Delete all orders ({x})",clearAllConfirm:"Sure? This deletes everything for good. Tap again",clearedAll:"Deleted all orders ({x})",noOrdersAll:"No orders",testTitle:"Delete orders",testSub:"Deletes only orders with the note TEST. Real orders are untouched.",clearTests:"Delete test orders ({x})",clearConfirm:"Tap again to confirm",cleared:"Deleted {x} test orders",noTests:"No test orders",setupMissing:"The site isn't connected to its database yet. Add the Firebase settings at the top of index.html.",orderOffline:"Online ordering isn't available right now. Order by phone on 16574.",notifOn:"Turn on alerts",notifIsOn:"Alerts on",loggingIn:"Signing in…",netLogin:"No internet connection. Try again."});
+Object.assign(T.ar,{promoLabel:"كود الخصم",promoPh:"عندك كود خصم؟ اكتبه هنا",apply:"تطبيق",removePromo:"إلغاء",promoOk:"تم تطبيق الكود {x}",promoBad:"الكود ده مش صحيح أو مش شغال دلوقتي",discount:"الخصم",subtotal:"المجموع",promosTitle:"أكواد الخصم",promoOn:"شغال",promoOff:"مقفول",promoOffMsg:"كود {x} اتقفل، فاتشال من طلبك",clearAll:"مسح كل الطلبات ({x})",clearAllConfirm:"متأكد؟ هيتمسح كل حاجة نهائي. اضغط تاني",clearedAll:"اتمسحت كل الطلبات ({x})",noOrdersAll:"مفيش طلبات",testTitle:"مسح الطلبات",testSub:"بيمسح الطلبات اللي عليها ملاحظة TEST بس، والطلبات الحقيقية مش بتتلمس.",clearTests:"مسح الطلبات التجريبية ({x})",clearConfirm:"اضغط تاني للتأكيد",cleared:"اتمسحت {x} طلب تجريبي",noTests:"مفيش طلبات تجريبية",setupMissing:"الموقع لسه مش متوصل بقاعدة البيانات. حط إعدادات Firebase في أول ملف index.html.",orderOffline:"الطلب أونلاين مش متاح دلوقتي. اطلب بالتليفون على 16574.",notifOn:"تفعيل التنبيهات",notifIsOn:"التنبيهات شغّالة",loggingIn:"بندخّلك…",netLogin:"مفيش اتصال بالإنترنت. جرّب تاني."});
+Object.assign(T.en,{promoLabel:"Promo code",promoPh:"Have a promo code? Enter it here",apply:"Apply",removePromo:"Remove",promoOk:"Code {x} applied",promoBad:"That code isn't valid or isn't active right now",discount:"Discount",subtotal:"Subtotal",promosTitle:"Promo codes",promoOn:"On",promoOff:"Off",promoOffMsg:"Code {x} was switched off and removed from your order",clearAll:"Delete all orders ({x})",clearAllConfirm:"Sure? This deletes everything for good. Tap again",clearedAll:"Deleted all orders ({x})",noOrdersAll:"No orders",testTitle:"Delete orders",testSub:"Deletes only orders with the note TEST. Real orders are untouched.",clearTests:"Delete test orders ({x})",clearConfirm:"Tap again to confirm",cleared:"Deleted {x} test orders",noTests:"No test orders",setupMissing:"The site isn't connected to its database yet. Add the Firebase settings at the top of index.html.",orderOffline:"Online ordering isn't available right now. Order by phone on 16574.",notifOn:"Turn on alerts",notifIsOn:"Alerts on",loggingIn:"Signing in…",netLogin:"No internet connection. Try again."});
 
 const FLOW=["new","preparing","onway","done"];
 /* Branches that accept online orders (index in BRANCHES). Only Arab Academy — Engineering Building A for now. */
 const ORDER_BRANCHES=[6];
+/* Promo codes. The owner switches each one on/off from the dashboard. type "pct" = percent off, "egp" = pounds off. */
+const DEFAULT_PROMOS={kadry50:{on:true,type:"pct",value:50,label:"kadry50"},elsa3dany50:{on:true,type:"pct",value:50,label:"ElSa3Dany50"}};
+const normCode=c=>String(c||"").trim().toLowerCase();
+const promoName=c=>{const p=(S.shop.promos||DEFAULT_PROMOS)[normCode(c)];return (p&&p.label)||normCode(c)};
+const promoInfo=c=>{const p=(S.shop.promos||DEFAULT_PROMOS)[normCode(c)];return p&&p.on?p:null};
+const promoText=p=>p.type==="egp"?egp(p.value):fmt(p.value)+"٪".replace("٪",isAr()?"٪":"%");
+function discountFor(sub){const p=S.promo&&promoInfo(S.promo);if(!p)return 0;return Math.min(sub,p.type==="egp"?+p.value:Math.round(sub*(+p.value)/100))}
+function grandTotal(){const sub=cartTotal();return sub-discountFor(sub)}
 const OWNER_USER="amrelshabrawy";
 const stLabel=(st,type)=>type==="pickup"&&st==="onway"?t("st_ready"):type==="pickup"&&st==="done"?t("st_picked"):t("st_"+st);
 const payLabel=(pay,type)=>{const k="pay_"+(pay==="instapay"?"instapay":"cash");return type==="pickup"&&T[S.lang][k+"_p"]?t(k+"_p"):t(k)};
@@ -551,7 +571,7 @@ const configured=window.FIREBASE_CONFIG&&FIREBASE_CONFIG.apiKey&&!/PASTE/.test(F
 if(configured&&window.firebase){try{firebase.initializeApp(FIREBASE_CONFIG);fs=firebase.firestore();auth=firebase.auth()}catch(e){console.error(e)}}
 
 /* ---------- state ---------- */
-const S={lang:store.get("shab_lang","ar"),cart:store.get("shab_cart",{}),variant:{},step:"cart",shop:{open:true,instapay:""},authed:false,all:[],myIds:store.get("shab_my",[]),myOrders:{},mySubs:{},filter:"active",seen:null,alerts:false,unread:0,lastOrder:null,drawerMode:"cart",view:"menu",ordersSub:null};
+const S={promo:store.get("shab_promo",""),lang:store.get("shab_lang","ar"),cart:store.get("shab_cart",{}),variant:{},step:"cart",shop:{open:true,instapay:"",promos:DEFAULT_PROMOS},authed:false,all:[],myIds:store.get("shab_my",[]),myOrders:{},mySubs:{},filter:"active",seen:null,alerts:false,unread:0,lastOrder:null,drawerMode:"cart",view:"menu",ordersSub:null};
 const t=(k,x)=>{let s=(T[S.lang]||T.ar)[k];if(s==null)s=T.ar[k]||k;return x!=null?s.replace("{x}",x):s};
 const fmt=n=>new Intl.NumberFormat(S.lang==="ar"?"ar-EG":"en-US").format(n);
 const egp=n=>S.lang==="ar"?fmt(n)+" ج.م":"EGP "+fmt(n);
@@ -624,7 +644,7 @@ function cartLines(){
 function cartTotal(){return cartLines().reduce((s,l)=>s+l.p*l.q,0)}
 function updateCartBar(bump){
   const count=cartLines().reduce((s,l)=>s+l.q,0);
-  $("#cartCount").textContent=fmt(count);$("#cartTotal").textContent=egp(cartTotal());
+  $("#cartCount").textContent=fmt(count);$("#cartTotal").textContent=egp(grandTotal());
   $("#cartbar").classList.toggle("hide",count===0||S.view!=="menu");
   if(bump){const b=$("#openCart");b.classList.remove("bump");void b.offsetWidth;b.classList.add("bump")}
   store.set("shab_cart",S.cart);
@@ -680,6 +700,13 @@ $("#myOrdersBtn").onclick=()=>openDrawer("mine");
 $("#closeDrawer").onclick=closeDrawer;$("#scrim").onclick=closeDrawer;
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#drawer").hidden)closeDrawer()});
 
+function totalsHTML(){const sub=cartTotal(),d=discountFor(sub);return (d?`<div class="sumrow" style="margin-top:0"><span>${t("subtotal")}</span><span class="num">${egp(sub)}</span></div><div class="sumrow" style="margin-top:2px;color:var(--orange)"><span>${t("discount")} (${esc(promoName(S.promo))})</span><span class="num">− ${egp(d)}</span></div>`:"")+`<div class="sumrow"><span>${t("total")}</span><b class="num">${egp(sub-d)}</b></div>`}
+function promoHTML(){const p=S.promo&&promoInfo(S.promo);return `<div class="promo">${p?`<div class="promo-on"><span>✓ ${esc(t("promoOk",promoName(S.promo)))} · ${promoText(p)}</span><button class="linkbtn" id="promoRemove">${t("removePromo")}</button></div>`:`<label class="f" style="margin:0"><span>${t("promoLabel")}</span><div class="promo-row"><input id="promoIn" dir="ltr" autocapitalize="off" spellcheck="false" placeholder="${t("promoPh")}"><button class="btn btn-ghost" id="promoBtn">${t("apply")}</button></div></label><div class="err" id="promoErr" hidden>${t("promoBad")}</div>`}</div>`}
+function wirePromo(){
+  const b=$("#promoBtn"),r=$("#promoRemove");
+  if(b){const go=()=>{const v=$("#promoIn").value;if(promoInfo(v)){S.promo=normCode(v);store.set("shab_promo",S.promo);renderDrawer();updateCartBar(true)}else{$("#promoErr").hidden=false}};b.onclick=go;$("#promoIn").onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();go()}}}
+  if(r)r.onclick=()=>{S.promo="";store.set("shab_promo","");renderDrawer();updateCartBar()};
+}
 const stepsBar=n=>`<div class="steps">${[1,2,3].map(i=>`<span class="${i<=n?"on":""}"></span>`).join("")}</div>`;
 function orderBlocked(){
   if(!fs)return t("orderOffline");
@@ -698,7 +725,8 @@ function renderDrawer(){
       <div class="stepper"><button data-dec="${l.ck}" aria-label="−">−</button><span class="num">${fmt(l.q)}</span><button data-inc="${l.ck}" aria-label="+">+</button></div></div>`).join("")
       +`<label class="f" style="margin-top:14px"><span>${t("notes")}</span><textarea id="oNote" maxlength="400" placeholder="${t("notesPh")}">${esc(store.get("shab_note",""))}</textarea></label>`;
     $("#oNote").oninput=e=>store.set("shab_note",e.target.value);
-    foot.innerHTML=`<div class="sumrow"><span>${t("total")}</span><b class="num">${egp(cartTotal())}</b></div><button class="btn btn-green" id="toCheckout" style="width:100%;margin-top:10px">${t("toCheckout")}</button>`;
+    body.insertAdjacentHTML("beforeend",promoHTML());wirePromo();
+    foot.innerHTML=totalsHTML()+`<button class="btn btn-green" id="toCheckout" style="width:100%;margin-top:10px">${t("toCheckout")}</button>`;
     $("#toCheckout").onclick=()=>{S.step="details";renderDrawer()};
   } else if(S.step==="details"){
     $("#dTitle").textContent=t("details");
@@ -730,7 +758,7 @@ function renderDrawer(){
       const insta=document.querySelector('input[name=pay]:checked').value==="instapay",box=$("#instaInfo");box.hidden=!insta;
       box.innerHTML=S.shop.instapay?esc(t("instaTo"+P,"\u0001")).replace("\u0001",`<b dir="ltr">${esc(S.shop.instapay)}</b>`):esc(t("instaGeneric"+P))};
     document.querySelectorAll('input[name=pay],input[name=otype]').forEach(r=>r.onchange=sync);sync();
-    foot.innerHTML=`<div class="sumrow"><span>${t("total")}</span><b class="num">${egp(cartTotal())}</b></div>
+    foot.innerHTML=totalsHTML()+`
       <div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-ghost" id="backCart">${t("back")}</button><button class="btn btn-orange" id="placeBtn" style="flex:1" ${blocked?"disabled":""}>${t("confirm")}</button></div>`;
     $("#backCart").onclick=()=>{S.step="cart";renderDrawer()};
     $("#placeBtn").onclick=placeOrder;
@@ -781,12 +809,12 @@ async function placeOrder(){
   const btn=$("#placeBtn");btn.disabled=true;btn.textContent=t("sending");
   const ref=fs.collection("orders").doc(),B=BRANCHES[branch];
   const order={id:ref.id,no:String(1000+Math.floor(Math.random()*9000)),createdAt:Date.now(),lang:S.lang,type:otype,name,phone,address:otype==="pickup"?"":addr,branch:B[0]+" — "+B[1],branchEn:B[2]+" — "+B[3],payment:pay,
-    items:cartLines().map(l=>({n:l.ar,ne:l.en,p:l.p,q:l.q})),total:cartTotal(),note:store.get("shab_note","").trim().slice(0,400),status:"new"};
+    items:cartLines().map(l=>({n:l.ar,ne:l.en,p:l.p,q:l.q})),subtotal:cartTotal(),discount:discountFor(cartTotal()),promo:discountFor(cartTotal())?promoName(S.promo):"",total:grandTotal(),note:store.get("shab_note","").trim().slice(0,400),status:"new"};
   try{
     await ref.set(order);
     S.myIds=[ref.id,...S.myIds.filter(x=>x!==ref.id)].slice(0,20);store.set("shab_my",S.myIds);
     S.lastOrder=order;S.myOrders[ref.id]=order;watchMine(ref.id);
-    S.cart={};store.set("shab_note","");updateCartBar();renderControls();
+    S.cart={};S.promo="";store.set("shab_promo","");store.set("shab_note","");updateCartBar();renderControls();
     S.step="done";renderDrawer();
   }catch(err){
     console.error(err);btn.disabled=false;btn.textContent=t("confirm");
@@ -814,7 +842,11 @@ document.addEventListener("click",async e=>{const b=e.target.closest("#clearTest
   try{for(let i=0;i<ids.length;i+=400){const batch=fs.batch();ids.slice(i,i+400).forEach(id=>batch.delete(fs.collection("orders").doc(id)));await batch.commit();done+=Math.min(400,ids.length-i)}toast(t("saved"),t("cleared",fmt(done)))}
   catch(err){console.error(err);toast(t("notSaved"),t("tryAgain"))}
   paintClear()});
-function renderOwner(){paintClear();paintClearAll();
+function paintPromos(){const el=$("#promoList");if(!el)return;const P=S.shop.promos||DEFAULT_PROMOS;
+  el.innerHTML=Object.keys(P).map(c=>`<label class="switch promo-item"><input type="checkbox" data-promo="${esc(c)}" ${P[c].on?"checked":""}><span><b dir="ltr">${esc(P[c].label||c)}</b> · ${promoText(P[c])}<small>${P[c].on?t("promoOn"):t("promoOff")}</small></span></label>`).join("")}
+document.addEventListener("change",async e=>{const i=e.target.closest("[data-promo]");if(!i)return;const c=i.dataset.promo,P=S.shop.promos||DEFAULT_PROMOS;
+  try{await fs.doc("shop/settings").set({promos:{[c]:{...P[c],on:i.checked}}},{merge:true});toast(t("saved"),c+" · "+(i.checked?t("promoOn"):t("promoOff")))}catch(err){console.error(err);i.checked=!i.checked;toast(t("notSaved"),t("tryAgain"))}});
+function renderOwner(){paintPromos();paintClear();paintClearAll();
   const all=S.all,day=new Date();day.setHours(0,0,0,0);
   const today=all.filter(o=>o.createdAt>=day.getTime()&&o.status!=="cancelled");
   $("#sNew").textContent=fmt(all.filter(o=>o.status==="new").length);
@@ -839,6 +871,7 @@ function ocardHTML(o){
       <div><small>${pk?t("pickupAt"):t("branch2")}</small>${esc(br)}</div>
     </div>
     <div class="olines">${(o.items||[]).map(it=>`<div><span>${esc(lineLabel(it))} <span class="num">×${fmt(+it.q)}</span></span><span class="num">${egp((+it.p)*(+it.q))}</span></div>`).join("")}
+      ${o.promo?`<div style="color:var(--orange)"><span>${t("discount")} (${esc(o.promo)})</span><span class="num">− ${egp(+o.discount||0)}</span></div>`:""}
       <div class="tot"><span>${t("total")}</span><span class="num">${egp(+o.total||0)}</span></div></div>
     ${o.note?`<div class="info" style="margin-top:8px"><b>${t("note")}</b> ${esc(o.note)}</div>`:""}
     ${next?`<div class="oacts"><button class="btn btn-green" data-adv="${esc(o.id)}|${next}">${nextLabel}</button><button class="btn btn-bad" data-cancel="${esc(o.id)}">${t("cancelOrder")}</button></div>`:""}
@@ -925,7 +958,9 @@ function paintSetup(){const el=$("#accessNote");el.textContent=t("setupMissing")
 applyLang();
 if(fs){
   fs.doc("shop/settings").onSnapshot(s=>{
-    const d=s.exists?s.data():{};S.shop={open:d.open!==false,instapay:d.instapay||""};
+    const d=s.exists?s.data():{};const before=S.promo&&promoInfo(S.promo);S.shop={open:d.open!==false,instapay:d.instapay||"",promos:Object.assign({},DEFAULT_PROMOS,d.promos||{})};
+    if(before&&!promoInfo(S.promo)){toast(t("promoLabel"),t("promoOffMsg",promoName(S.promo)));S.promo="";store.set("shab_promo","")}
+    updateCartBar();paintPromos();
     $("#closedNote").hidden=S.shop.open;$("#openToggle").checked=S.shop.open;$("#openLabel").textContent=S.shop.open?t("openOn"):t("openOff");
     if(document.activeElement!==$("#instaInput"))$("#instaInput").value=S.shop.instapay;
     if(!$("#drawer").hidden&&S.step==="details")renderDrawer();
