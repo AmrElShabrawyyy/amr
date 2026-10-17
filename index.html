@@ -462,6 +462,7 @@ html[dir="ltr"] .hero-art .r1{transform:skewX(8deg) rotate(4deg)}
         <h3 data-t="testTitle"></h3>
         <p style="margin:0 0 10px;color:var(--muted);font-size:13px" data-t="testSub"></p>
         <button class="btn btn-bad" id="clearTests" style="width:100%"></button>
+        <button class="btn btn-bad" id="clearAll" style="width:100%;margin-top:8px"></button>
       </div>
       <div class="panel info" style="background:var(--surface)" data-t="keepOpen"></div>
     </aside>
@@ -529,8 +530,8 @@ en:{brand:"Amr El Shabrawy",brandSub:"عمرو الشبراوي",menu:"Menu",own
  f_active:"Active",f_all:"All",st_new:"New",st_preparing:"Preparing",st_onway:"On the way",st_done:"Delivered",st_cancelled:"Cancelled",pay_cash:"Cash on delivery",pay_instapay:"InstaPay on delivery",orderType:"How do you want it?",t_delivery:"Home delivery",t_pickup:"Pickup from branch",t_deliverySub:"A driver brings it to your door",t_pickupSub:"Collect it from the branch",branchPickup:"Branch you'll pick up from",cashSubP:"Pay cash at the branch when you collect",instaSubP:"Transfer with InstaPay when you collect",instaToP:"Transfer to {x} when you collect, and show the cashier the confirmation.",instaGenericP:"You'll transfer with InstaPay at the branch; the cashier will give you the details.",st_ready:"Ready for pickup",st_picked:"Picked up",readyPickup:"Ready for pickup",pickedUp:"Picked up",pickupAt:"Pickup from branch",donePickup:"We'll show it here as soon as your order is ready to collect.",pay_cash_p:"Cash at pickup",pay_instapay_p:"InstaPay at pickup"}
 };
 
-Object.assign(T.ar,{testTitle:"الطلبات التجريبية",testSub:"بيمسح الطلبات اللي عليها ملاحظة TEST بس، والطلبات الحقيقية مش بتتلمس.",clearTests:"مسح الطلبات التجريبية ({x})",clearConfirm:"اضغط تاني للتأكيد",cleared:"اتمسحت {x} طلب تجريبي",noTests:"مفيش طلبات تجريبية",setupMissing:"الموقع لسه مش متوصل بقاعدة البيانات. حط إعدادات Firebase في أول ملف index.html.",orderOffline:"الطلب أونلاين مش متاح دلوقتي. اطلب بالتليفون على 16574.",notifOn:"تفعيل التنبيهات",notifIsOn:"التنبيهات شغّالة",loggingIn:"بندخّلك…",netLogin:"مفيش اتصال بالإنترنت. جرّب تاني."});
-Object.assign(T.en,{testTitle:"Test orders",testSub:"Deletes only orders with the note TEST. Real orders are untouched.",clearTests:"Delete test orders ({x})",clearConfirm:"Tap again to confirm",cleared:"Deleted {x} test orders",noTests:"No test orders",setupMissing:"The site isn't connected to its database yet. Add the Firebase settings at the top of index.html.",orderOffline:"Online ordering isn't available right now. Order by phone on 16574.",notifOn:"Turn on alerts",notifIsOn:"Alerts on",loggingIn:"Signing in…",netLogin:"No internet connection. Try again."});
+Object.assign(T.ar,{clearAll:"مسح كل الطلبات ({x})",clearAllConfirm:"متأكد؟ هيتمسح كل حاجة نهائي. اضغط تاني",clearedAll:"اتمسحت كل الطلبات ({x})",noOrdersAll:"مفيش طلبات",testTitle:"مسح الطلبات",testSub:"بيمسح الطلبات اللي عليها ملاحظة TEST بس، والطلبات الحقيقية مش بتتلمس.",clearTests:"مسح الطلبات التجريبية ({x})",clearConfirm:"اضغط تاني للتأكيد",cleared:"اتمسحت {x} طلب تجريبي",noTests:"مفيش طلبات تجريبية",setupMissing:"الموقع لسه مش متوصل بقاعدة البيانات. حط إعدادات Firebase في أول ملف index.html.",orderOffline:"الطلب أونلاين مش متاح دلوقتي. اطلب بالتليفون على 16574.",notifOn:"تفعيل التنبيهات",notifIsOn:"التنبيهات شغّالة",loggingIn:"بندخّلك…",netLogin:"مفيش اتصال بالإنترنت. جرّب تاني."});
+Object.assign(T.en,{clearAll:"Delete all orders ({x})",clearAllConfirm:"Sure? This deletes everything for good. Tap again",clearedAll:"Deleted all orders ({x})",noOrdersAll:"No orders",testTitle:"Delete orders",testSub:"Deletes only orders with the note TEST. Real orders are untouched.",clearTests:"Delete test orders ({x})",clearConfirm:"Tap again to confirm",cleared:"Deleted {x} test orders",noTests:"No test orders",setupMissing:"The site isn't connected to its database yet. Add the Firebase settings at the top of index.html.",orderOffline:"Online ordering isn't available right now. Order by phone on 16574.",notifOn:"Turn on alerts",notifIsOn:"Alerts on",loggingIn:"Signing in…",netLogin:"No internet connection. Try again."});
 
 const FLOW=["new","preparing","onway","done"];
 /* Branches that accept online orders (index in BRANCHES). Only Arab Academy — Engineering Building A for now. */
@@ -800,13 +801,20 @@ const FILTERS=["active","new","preparing","onway","done","cancelled","all"];
 const ACTIVE=["new","preparing","onway"];
 const isTest=o=>String(o.note||"").startsWith("TEST");
 function paintClear(){const n=S.all.filter(isTest).length,b=$("#clearTests");if(!b||b.dataset.armed)return;b.textContent=n?t("clearTests",fmt(n)):t("noTests");b.disabled=!n}
+function paintClearAll(){const n=S.all.length,b=$("#clearAll");if(!b||b.dataset.armed)return;b.textContent=n?t("clearAll",fmt(n)):t("noOrdersAll");b.disabled=!n}
+document.addEventListener("click",async e=>{const b=e.target.closest("#clearAll");if(!b)return;
+  if(!b.dataset.armed){b.dataset.armed="1";b.textContent=t("clearAllConfirm");setTimeout(()=>{delete b.dataset.armed;paintClearAll()},4000);return}
+  delete b.dataset.armed;b.disabled=true;let done=0;
+  try{while(true){const snap=await fs.collection("orders").limit(400).get();if(snap.empty)break;const batch=fs.batch();snap.docs.forEach(d=>batch.delete(d.ref));await batch.commit();done+=snap.size}toast(t("saved"),t("clearedAll",fmt(done)))}
+  catch(err){console.error(err);toast(t("notSaved"),t("tryAgain"))}
+  paintClearAll()});
 document.addEventListener("click",async e=>{const b=e.target.closest("#clearTests");if(!b)return;
   if(!b.dataset.armed){b.dataset.armed="1";b.textContent=t("clearConfirm");setTimeout(()=>{delete b.dataset.armed;paintClear()},4000);return}
   delete b.dataset.armed;b.disabled=true;const ids=S.all.filter(isTest).map(o=>o.id);let done=0;
   try{for(let i=0;i<ids.length;i+=400){const batch=fs.batch();ids.slice(i,i+400).forEach(id=>batch.delete(fs.collection("orders").doc(id)));await batch.commit();done+=Math.min(400,ids.length-i)}toast(t("saved"),t("cleared",fmt(done)))}
   catch(err){console.error(err);toast(t("notSaved"),t("tryAgain"))}
   paintClear()});
-function renderOwner(){paintClear();
+function renderOwner(){paintClear();paintClearAll();
   const all=S.all,day=new Date();day.setHours(0,0,0,0);
   const today=all.filter(o=>o.createdAt>=day.getTime()&&o.status!=="cancelled");
   $("#sNew").textContent=fmt(all.filter(o=>o.status==="new").length);
