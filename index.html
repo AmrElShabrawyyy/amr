@@ -528,6 +528,8 @@ Object.assign(T.ar,{setupMissing:"الموقع لسه مش متوصل بقاعد
 Object.assign(T.en,{setupMissing:"The site isn't connected to its database yet. Add the Firebase settings at the top of index.html.",orderOffline:"Online ordering isn't available right now. Order by phone on 16574.",notifOn:"Turn on alerts",notifIsOn:"Alerts on",loggingIn:"Signing in…",netLogin:"No internet connection. Try again."});
 
 const FLOW=["new","preparing","onway","done"];
+/* Branches that accept online orders (index in BRANCHES). Only Arab Academy — Engineering Building A for now. */
+const ORDER_BRANCHES=[6];
 const OWNER_USER="amrelshabrawy";
 const stLabel=(st,type)=>type==="pickup"&&st==="onway"?t("st_ready"):type==="pickup"&&st==="done"?t("st_picked"):t("st_"+st);
 const payLabel=(pay,type)=>{const k="pay_"+(pay==="instapay"?"instapay":"cash");return type==="pickup"&&T[S.lang][k+"_p"]?t(k+"_p"):t(k)};
@@ -704,7 +706,7 @@ function renderDrawer(){
           <label><input type="radio" name="otype" value="delivery" ${p.type!=="pickup"?"checked":""}><div class="ic">${PAYICON.bike}</div><b>${t("t_delivery")}</b><small>${t("t_deliverySub")}</small></label>
           <label><input type="radio" name="otype" value="pickup" ${p.type==="pickup"?"checked":""}><div class="ic">${PAYICON.bag}</div><b>${t("t_pickup")}</b><small>${t("t_pickupSub")}</small></label>
         </div>
-        <label class="f"><span id="branchLbl">${t("branch")}</span><select id="cBranch">${BRANCHES.map((b,i)=>`<option value="${i}" ${p.branch==i?"selected":""}>${isAr()?b[0]+" — "+b[1]:b[2]+" — "+b[3]}</option>`).join("")}</select></label>
+        <label class="f"><span id="branchLbl">${t("branch")}</span><select id="cBranch">${ORDER_BRANCHES.map(i=>{const b=BRANCHES[i];return `<option value="${i}" selected>${isAr()?b[0]+" — "+b[1]:b[2]+" — "+b[3]}</option>`}).join("")}</select></label>
         <label class="f" id="addrWrap"><span>${t("address")}</span><textarea id="cAddr" maxlength="400" autocomplete="street-address" placeholder="${t("addressPh")}" required>${esc(p.addr||"")}</textarea><div class="err" id="eAddr" hidden>${t("addrErr")}</div></label>
         <span style="display:block;font-size:13px;font-weight:500;margin-bottom:6px">${t("payMethod")}</span>
         <div class="pay">
